@@ -1,0 +1,9 @@
+# IntelliJ
+.idea/
+*.iml
+
+# Binários Java
+*.class
+
+# Arquivos temporários do sistema
+.DS_Store
