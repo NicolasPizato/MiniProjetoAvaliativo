@@ -1,32 +1,35 @@
 package com.consultorio;
 
-import com.consultorio.model.Funcionario;
-import com.consultorio.model.Nutricionista;
-import com.consultorio.model.Consulta;
+import com.consultorio.model.*;
 
 import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) {
-
-        // === TESTE FUNCIONÁRIO ===
+        // Criando funcionários e nutricionista
         Funcionario funcionario = new Funcionario("Carlos Silva", 35, 2500.0);
-        System.out.println("Funcionário: " + funcionario.getNome()
-                + ", Idade: " + funcionario.getIdade()
-                + ", Salário: R$" + funcionario.getSalario());
-
-        // === TESTE NUTRICIONISTA ===
         Nutricionista nutricionista = new Nutricionista("Ana Souza", 29, 4000.0, 15);
-        System.out.println("Nutricionista: " + nutricionista.getNome()
-                + ", Idade: " + nutricionista.getIdade()
-                + ", Salário: R$" + nutricionista.getSalario()
-                + ", Consultas: " + nutricionista.getNumeroConsultas());
 
-        // === TESTE CONSULTA ===
+        // Adicionando ao quadro de funcionários
+        QuadroFuncionarios.listaFuncionarios.add(funcionario);
+        QuadroFuncionarios.listaFuncionarios.add(nutricionista);
+
+        // Criando consulta
         Consulta consulta = new Consulta(nutricionista, "João Pereira", LocalDateTime.now());
-        System.out.println("Consulta criada:");
-        System.out.println("  Nutricionista: " + consulta.getNutricionista().getNome());
-        System.out.println("  Paciente: " + consulta.getNomePaciente());
-        System.out.println("  Data/Hora: " + consulta.getDataHora());
+        ConsultasImpl.listaConsultas.add(consulta);
+
+        // Imprimindo funcionários
+        System.out.println("Funcionários:");
+        for (Funcionario f : QuadroFuncionarios.listaFuncionarios) {
+            System.out.println(f.getNome() + ", Idade: " + f.getIdade() + ", Salário: R$" + f.getSalario());
+        }
+
+        // Imprimindo consultas
+        System.out.println("\nConsultas:");
+        for (Consulta c : ConsultasImpl.listaConsultas) {
+            System.out.println("Nutricionista: " + c.getNutricionista().getNome() +
+                    ", Paciente: " + c.getNomePaciente() +
+                    ", Data/Hora: " + c.getDataHora());
+        }
     }
 }
