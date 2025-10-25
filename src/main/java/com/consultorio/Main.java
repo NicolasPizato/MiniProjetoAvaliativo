@@ -6,45 +6,39 @@ import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) {
-        // Criando um funcionário genérico
+        // ======== Criação de Objetos ========
         Funcionario funcionario = new Funcionario("Carlos Silva", 35, 2500.0);
-        System.out.println("Funcionário: " + funcionario.getNome()
-                + ", Idade: " + funcionario.getIdade()
-                + ", Salário: R$" + funcionario.getSalario());
-
-        // Criando um nutricionista
         Nutricionista nutricionista = new Nutricionista("Ana Souza", 29, 4000.0, 15);
-        System.out.println("Nutricionista: " + nutricionista.getNome()
-                + ", Idade: " + nutricionista.getIdade()
-                + ", Salário: R$" + nutricionista.getSalario()
-                + ", Consultas: " + nutricionista.getNumeroConsultas());
 
-        // Adicionando funcionários ao quadro
+        Consulta consulta1 = new Consulta(nutricionista, "João Pereira", LocalDateTime.of(2025, 10, 24, 9, 0));
+        Consulta consulta2 = new Consulta(nutricionista, "Maria Silva", LocalDateTime.of(2025, 10, 25, 14, 0));
+        Consulta consulta3 = new Consulta(nutricionista, "Pedro Santos", LocalDateTime.of(2025, 10, 26, 16, 30));
+
+        // ======== Gerenciamento de Dados ========
+        // Adicionando funcionários ao Quadro
         QuadroFuncionarios.listaFuncionarios.add(funcionario);
         QuadroFuncionarios.listaFuncionarios.add(nutricionista);
 
-        // Criando consultas
-        Consulta consulta1 = new Consulta(nutricionista, "João Pereira", LocalDateTime.now());
-        Consulta consulta2 = new Consulta(nutricionista, "Maria Silva", LocalDateTime.now().plusDays(1));
-
-        // Adicionando consultas usando métodos estáticos
+        // Adicionando consultas à lista estática
         ConsultasImpl.adicionaConsulta(consulta1);
         ConsultasImpl.adicionaConsulta(consulta2);
+        ConsultasImpl.adicionaConsulta(consulta3);
 
-        // Exibindo todas as consultas
-        System.out.println("\nConsultas cadastradas:");
+        // ======== Relatórios e Impressão ========
+        System.out.println("===== RELATÓRIO DE CONSULTAS =====");
         for (Consulta c : ConsultasImpl.retornaConsultas()) {
-            System.out.println(c.getNomePaciente() + " - Nutricionista: " + c.getNutricionista().getNome()
-                    + " - Data/Hora: " + c.getDataHora());
+            System.out.println(c); // usando toString()
         }
 
-        // Deletando a primeira consulta
-        ConsultasImpl.deletaConsulta(0);
-
-        System.out.println("\nApós deletar a primeira consulta:");
-        for (Consulta c : ConsultasImpl.retornaConsultas()) {
-            System.out.println(c.getNomePaciente() + " - Nutricionista: " + c.getNutricionista().getNome()
-                    + " - Data/Hora: " + c.getDataHora());
+        System.out.println("\n===== RELATÓRIO DE FUNCIONÁRIOS =====");
+        for (Funcionario f : QuadroFuncionarios.listaFuncionarios) {
+            System.out.println(f); // usando toString()
+            if (f instanceof Nutricionista) {
+                System.out.println("Função: Nutricionista, Consultas: " + ((Nutricionista) f).getNumeroConsultas());
+            } else {
+                System.out.println("Função: Funcionário");
+            }
+            System.out.println("-----------------------------");
         }
     }
 }

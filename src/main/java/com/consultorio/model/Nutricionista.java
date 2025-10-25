@@ -23,4 +23,15 @@ public class Nutricionista extends Funcionario {
     public void setNumeroConsultas(int numeroConsultas) {
         this.numeroConsultas = numeroConsultas;
     }
+
+    // Sobrescrevendo toString
+    @Override
+    public String toString() {
+        return "Nutricionista{" +
+                "nome='" + getNome() + '\'' +
+                ", idade=" + getIdade() +
+                ", salario=" + getSalario() +
+                ", numeroConsultas=" + numeroConsultas +
+                '}';
+    }
 }
